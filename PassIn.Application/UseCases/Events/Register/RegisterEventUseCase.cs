@@ -1,4 +1,5 @@
 ﻿using PassIn.Communication.Requests;
+using PassIn.Exceptions;
 
 namespace PassIn.Application.UseCases.Events.Register;
 
@@ -14,12 +15,12 @@ public class RegisterEventUseCase
     public void Validate(RequestEventJson request)
     {
         if (request.MaximumAttendees <= 0)
-            throw new ArgumentException("Numero maximo invalido");
+            throw new PassInException("Numero maximo invalido");
 
         if (string.IsNullOrWhiteSpace(request.Title))
-            throw new ArgumentException("Titulo invalido");
+            throw new PassInException("Titulo invalido");
 
         if (string.IsNullOrWhiteSpace(request.Details))
-            throw new ArgumentException("Detalhes invalidos");
+            throw new PassInException("Detalhes invalidos");
     }
 }
