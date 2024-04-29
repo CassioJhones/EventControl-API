@@ -3,7 +3,6 @@ using PassIn.Application.UseCases.Events.GetById;
 using PassIn.Application.UseCases.Events.Register;
 using PassIn.Communication.Requests;
 using PassIn.Communication.Responses;
-using PassIn.Exceptions;
 
 namespace PassIn.Api.Controllers;
 
@@ -16,18 +15,9 @@ public class EventsController : ControllerBase
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     public IActionResult Register([FromBody] RequestEventJson request)
     {
-        try
-        {
             RegisterEventUseCase useCase = new();
             ResponseRegisteredEventJson response = useCase.Execute(request);
-
-            //return Created(string.Empty, response);
             return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
-        }
-        catch (PassInException erro)
-        {
-            return BadRequest(new ResponseErrorJson(erro.Message));
-        }
     }
 
     [HttpGet]
@@ -36,15 +26,8 @@ public class EventsController : ControllerBase
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
     public IActionResult GetById([FromRoute] Guid id)
     {
-        try
-        {
             GetEventByIdUseCase useCase = new();
             ResponseEventJson response = useCase.Execute(id);
             return Ok(response);
-        }
-        catch (PassInException erro)
-        {
-            return NotFound(new ResponseErrorJson(erro.Message));
-        }
     }
 }
