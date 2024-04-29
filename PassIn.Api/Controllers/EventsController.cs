@@ -18,8 +18,8 @@ public class EventsController : ControllerBase
     {
         try
         {
-            RegisterEventUseCase useCase = new RegisterEventUseCase();
-            var response = useCase.Execute(request);
+            RegisterEventUseCase useCase = new();
+            ResponseRegisteredEventJson response = useCase.Execute(request);
 
             //return Created(string.Empty, response);
             return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
@@ -27,10 +27,6 @@ public class EventsController : ControllerBase
         catch (PassInException erro)
         {
             return BadRequest(new ResponseErrorJson(erro.Message));
-        }
-        catch
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError, new ResponseErrorJson("Erro Desconhecido"));
         }
     }
 
@@ -42,17 +38,13 @@ public class EventsController : ControllerBase
     {
         try
         {
-            GetEventByIdUseCase useCase = new GetEventByIdUseCase();
+            GetEventByIdUseCase useCase = new();
             ResponseEventJson response = useCase.Execute(id);
             return Ok(response);
         }
         catch (PassInException erro)
         {
             return NotFound(new ResponseErrorJson(erro.Message));
-        }
-        catch
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError, new ResponseErrorJson("Erro Desconhecido"));
         }
     }
 }

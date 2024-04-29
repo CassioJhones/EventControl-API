@@ -1,6 +1,7 @@
 ﻿using PassIn.Communication.Responses;
 using PassIn.Exceptions;
 using PassIn.Infrastructure;
+using PassIn.Infrastructure.Entities;
 
 namespace PassIn.Application.UseCases.Events.GetById;
 public class GetEventByIdUseCase
@@ -8,10 +9,10 @@ public class GetEventByIdUseCase
 
     public ResponseEventJson Execute(Guid id)
     {
-        var bancoSQLite = new PassInDbContext();
-        var evento = bancoSQLite.Events.Find(id);
+        PassInDbContext bancoSQLite = new PassInDbContext();
+        Event? evento = bancoSQLite.Events.Find(id);
         if (evento is null)
-            throw new PassInException("Id nao existe");
+            throw new NotFoundException("Id nao existe");
 
         return new ResponseEventJson
         {

@@ -12,7 +12,7 @@ public class RegisterEventUseCase
     {
         Validate(request);
 
-        var bancoSQLite = new PassInDbContext();
+        PassInDbContext bancoSQLite = new PassInDbContext();
 
         Event entidade = new Event
         {
@@ -34,12 +34,12 @@ public class RegisterEventUseCase
     public void Validate(RequestEventJson request)
     {
         if (request.MaximumAttendees <= 0)
-            throw new PassInException("Numero maximo invalido");
+            throw new ErrorOnValidationException("Numero maximo invalido");
 
         if (string.IsNullOrWhiteSpace(request.Title))
-            throw new PassInException("Titulo invalido");
+            throw new ErrorOnValidationException("Titulo invalido");
 
         if (string.IsNullOrWhiteSpace(request.Details))
-            throw new PassInException("Detalhes invalidos");
+            throw new ErrorOnValidationException("Detalhes invalidos");
     }
 }
