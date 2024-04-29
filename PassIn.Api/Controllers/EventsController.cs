@@ -21,7 +21,8 @@ public class EventsController : ControllerBase
             RegisterEventUseCase useCase = new RegisterEventUseCase();
             var response = useCase.Execute(request);
 
-            return Created(string.Empty, response);
+            //return Created(string.Empty, response);
+            return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
         }
         catch (PassInException erro)
         {
