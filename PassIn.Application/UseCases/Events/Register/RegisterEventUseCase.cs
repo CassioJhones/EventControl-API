@@ -12,14 +12,14 @@ public class RegisterEventUseCase
     {
         Validate(request);
 
-        PassInDbContext bancoSQLite = new PassInDbContext();
+        PassInDbContext bancoSQLite = new();
 
-        Event entidade = new Event
+        Event entidade = new()
         {
             Title = request.Title,
             Details = request.Details,
             Maximum_Attendees = request.MaximumAttendees,
-            Slug = request.Title.ToLower().Replace(" ","-"),
+            Slug = request.Title.ToLower().Replace(" ", "-"),
         };
 
         bancoSQLite.Events.Add(entidade);
