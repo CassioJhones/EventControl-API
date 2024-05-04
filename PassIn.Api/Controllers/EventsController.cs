@@ -30,4 +30,14 @@ public class EventsController : ControllerBase
             ResponseEventJson response = useCase.Execute(id);
             return Ok(response);
     }
+
+    [HttpPost("{eventId}/register")]
+    public IActionResult Register([FromRoute]Guid eventId, [FromBody] RequestRegisterEventJson request)
+    {
+
+        return Created();
+
+    }
+
+
 }
