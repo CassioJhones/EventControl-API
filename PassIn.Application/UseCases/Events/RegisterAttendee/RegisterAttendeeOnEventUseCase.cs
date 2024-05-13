@@ -46,7 +46,7 @@ public class RegisterAttendeeOnEventUseCase
 
         bool attendeeExist = _bancoSQL.Attendees.Any(nome => nome.Email.Equals(request.Email));
         if (attendeeExist)
-            throw new ErrorOnValidationException("Cadastro ja existe");
+            throw new ConflictException("Cadastro ja existe");
 
         int totalAttendees = _bancoSQL.Attendees.Count(nome => nome.Event_Id == eventId);
 
