@@ -18,7 +18,7 @@ public class RegisterAttendeeOnEventUseCase
         Attendee entidade = new()
         {
             Email = request.Email,
-            Name = request.Name,    
+            Name = request.Name,
             Event_Id = eventId,
             Created_At = DateTime.UtcNow,
         };
@@ -34,9 +34,7 @@ public class RegisterAttendeeOnEventUseCase
 
     private void Validate(Guid eventId, RequestRegisterEventJson request)
     {
-        Event? eventExist = _bancoSQL.Events.Find(eventId);
-        if (eventExist is null)
-            throw new NotFoundException("Evento Nao existe");
+        Event? eventExist = _bancoSQL.Events.Find(eventId) ?? throw new NotFoundException("Evento Nao existe");
 
         if (string.IsNullOrWhiteSpace(request.Name))
             throw new ErrorOnValidationException("Titulo invalido");
@@ -49,17 +47,15 @@ public class RegisterAttendeeOnEventUseCase
             throw new ConflictException("Cadastro ja existe");
 
         int totalAttendees = _bancoSQL.Attendees.Count(nome => nome.Event_Id == eventId);
-
-        if (totalAttendees > eventExist.Maximum_Attendees)
+        if (totalAttendees >= eventExist.Maximum_Attendees)
             throw new ErrorOnValidationException("Espaço Insuficiente para tantas pessoas");
-
     }
 
     private bool EmailValidator(string email)
     {
         try
         {
-            new MailAddress(email);
+            _ = new MailAddress(email);
             return true;
         }
         catch (Exception)

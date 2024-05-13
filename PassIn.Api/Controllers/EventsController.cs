@@ -40,8 +40,8 @@ public class EventsController : ControllerBase
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status409Conflict)]
     public IActionResult Register([FromRoute] Guid eventId, [FromBody] RequestRegisterEventJson request)
     {
-        var useCase = new RegisterAttendeeOnEventUseCase();
-        var response = useCase.Execute(eventId, request);
+        RegisterAttendeeOnEventUseCase useCase = new();
+        ResponseRegisteredJson response = useCase.Execute(eventId, request);
         return Created(string.Empty, response);
     }
 }

@@ -11,14 +11,8 @@ public class ExceptionFilter : IExceptionFilter
     public void OnException(ExceptionContext context)
     {
         bool result = context.Exception is PassInException;
-        if (result)
-        {
-            HandleProjectException(context);
-        }
-        else
-        {
-            ThrowUnknowError(context);
-        }
+        if (result)  HandleProjectException(context);
+        else         ThrowUnknowError(context);
  
     }
 
