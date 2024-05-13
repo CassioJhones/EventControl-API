@@ -8,7 +8,7 @@ namespace PassIn.Application.UseCases.Events.Register;
 
 public class RegisterEventUseCase
 {
-    public ResponseRegisteredEventJson Execute(RequestEventJson request)
+    public ResponseRegisteredJson Execute(RequestEventJson request)
     {
         Validate(request);
 
@@ -25,7 +25,7 @@ public class RegisterEventUseCase
         bancoSQLite.Events.Add(entidade);
         bancoSQLite.SaveChanges();
 
-        return new ResponseRegisteredEventJson
+        return new ResponseRegisteredJson
         {
             Id = entidade.Id
         };

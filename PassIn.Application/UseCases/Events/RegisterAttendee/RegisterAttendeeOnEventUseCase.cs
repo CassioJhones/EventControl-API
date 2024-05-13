@@ -1,4 +1,5 @@
 ﻿using PassIn.Communication.Requests;
+using PassIn.Communication.Responses;
 using PassIn.Exceptions;
 using PassIn.Infrastructure;
 using PassIn.Infrastructure.Entities;
@@ -10,26 +11,31 @@ public class RegisterAttendeeOnEventUseCase
     private readonly PassInDbContext _bancoSQL;
     public RegisterAttendeeOnEventUseCase() => _bancoSQL = new PassInDbContext();
 
-    public void Execute(Guid eventId, RequestRegisterEventJson request)
+    public ResponseRegisteredJson Execute(Guid eventId, RequestRegisterEventJson request)
     {
 
         Validate(eventId, request);
         Attendee entidade = new()
         {
             Email = request.Email,
-            Name = request.Name,
+            Name = request.Name,    
             Event_Id = eventId,
             Created_At = DateTime.UtcNow,
         };
 
         _bancoSQL.Attendees.Add(entidade);
         _bancoSQL.SaveChanges();
+
+        return new ResponseRegisteredJson
+        {
+            Id = entidade.Id
+        };
     }
 
     private void Validate(Guid eventId, RequestRegisterEventJson request)
     {
-        bool eventExist = _bancoSQL.Events.Any(evento => evento.Id == eventId);
-        if (!eventExist)
+        Event? eventExist = _bancoSQL.Events.Find(eventId);
+        if (eventExist is null)
             throw new NotFoundException("Evento Nao existe");
 
         if (string.IsNullOrWhiteSpace(request.Name))
@@ -41,6 +47,12 @@ public class RegisterAttendeeOnEventUseCase
         bool attendeeExist = _bancoSQL.Attendees.Any(nome => nome.Email.Equals(request.Email));
         if (attendeeExist)
             throw new ErrorOnValidationException("Cadastro ja existe");
+
+        int totalAttendees = _bancoSQL.Attendees.Count(nome => nome.Event_Id == eventId);
+
+        if (totalAttendees > eventExist.Maximum_Attendees)
+            throw new ErrorOnValidationException("Espaço Insuficiente para tantas pessoas");
+
     }
 
     private bool EmailValidator(string email)
