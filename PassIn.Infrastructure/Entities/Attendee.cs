@@ -1,9 +1,13 @@
-﻿namespace PassIn.Infrastructure.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace PassIn.Infrastructure.Entities;
 public class Attendee
 {
     public Guid Id{ get; set; } = Guid.NewGuid();
     public string Name { get; set; } = string.Empty;
     public string Email{ get; set; } = string.Empty;
     public Guid Event_Id { get; set; }
-    public DateTime Created_At{ get; set; }// = DateTime.Now;
+    public DateTime Created_At{ get; set; }
+    [ForeignKey("CheckIn_Id")]
+    public CheckIn? CheckIn { get; set; }
 }
