@@ -13,21 +13,22 @@ public class GetAllAttendeesByEventIdUseCase
 
     public ResponseAllAttendeesJson Execute(Guid eventId)
     {
-        Event? participantes = _bancoSQL.Events
-            .Include(ev => ev.Attendees)
-            .FirstOrDefault(ev => ev.Id == eventId);
-        if (participantes is null)
-            throw new NotFoundException("Nao Existe");
-
-        return new ResponseAllAttendeesJson
-        {
-            Attendees = participantes.Attendees.Select(at=> new ResponseAttendeeJson
+        Event? convidado = _bancoSQL.Events
+            .Include(evento => evento.Attendees)
+            .ThenInclude(convidado => convidado.CheckIn)
+            .FirstOrDefault(evento => evento.Id == eventId);
+        return convidado is null
+            ? throw new NotFoundException("Nao Existe")
+            : new ResponseAllAttendeesJson
             {
-                Id = at.Id,
-                Name = at.Name,
-                Email = at.Email,
-                CreatedAt  = at.Created_At
-            }).ToList()
-        };
+                Attendees = convidado.Attendees.Select(convidado => new ResponseAttendeeJson
+                {
+                    Id = convidado.Id,
+                    Name = convidado.Name,
+                    Email = convidado.Email,
+                    CreatedAt = convidado.Created_At,
+                    CheckedInAt = convidado.CheckIn?.Created_at
+                }).ToList()
+            };
     }
 }

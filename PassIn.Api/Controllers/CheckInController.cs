@@ -14,8 +14,8 @@ public class CheckInController : ControllerBase
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status409Conflict)]
     public IActionResult CheckIn([FromRoute] Guid atendeId)
     {
-        var useCase = new MakeCheckinUseCase();
-        var teste = useCase.Execute(atendeId);
+        MakeCheckinUseCase useCase = new();
+        ResponseRegisteredJson teste = useCase.Execute(atendeId);
         return Created();
     }
 }

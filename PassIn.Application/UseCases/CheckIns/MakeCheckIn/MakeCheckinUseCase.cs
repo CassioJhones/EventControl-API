@@ -22,10 +22,7 @@ public class MakeCheckinUseCase
         _bancoSQL.CheckIns.Add(entidade);
         _bancoSQL.SaveChanges();
 
-        return new ResponseRegisteredJson
-        {
-            Id = entidade.Id,
-        };
+        return new ResponseRegisteredJson { Id = entidade.Id, };
     }
 
     private void Validate(Guid atendeId)

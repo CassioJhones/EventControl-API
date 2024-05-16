@@ -2,10 +2,10 @@
 
 namespace PassIn.Infrastructure.Entities;
 public class CheckIn
-{
+{// Classe referente a Tabela CheckIn no Banco de Dados
     public Guid Id { get; set; } = Guid.NewGuid();
-    public DateTime Created_at{ get; set; }
-    public Guid Attendee_Id{ get; set; }
+    public DateTime Created_at { get; set; }
+    public Guid Attendee_Id { get; set; }
     [ForeignKey("Attendee_Id")]
     public Attendee Attendee { get; set; } = default!;
 }
