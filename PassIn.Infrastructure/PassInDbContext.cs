@@ -8,8 +8,6 @@ public class PassInDbContext : DbContext
     public DbSet<Attendee> Attendees { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlite("Data Source=D:\\Trilha CSharp\\PassIn\\PassInDb.db");
-    }
-    
+        => optionsBuilder.UseSqlite("Data Source=D:\\Trilha CSharp\\PassIn\\PassInDb.db");
+
 } 

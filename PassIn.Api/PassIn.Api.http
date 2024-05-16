@@ -1,0 +1,8 @@
+﻿@PassIn.Api_HostAddress = https://localhost:7032
+###
+GET {{PassIn.Api_HostAddress}}/api/attendee/{76A31AF7-A1E5-4815-BB53-8DF5D87C6CC7}
+###
+
+GET {{PassIn.Api_HostAddress}}/api/events/{76A31AF7-A1E5-4815-BB53-8DF5D87C6CC7}
+###
+
