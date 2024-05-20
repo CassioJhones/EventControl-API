@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PassIn.Application.LogFiles;
 using PassIn.Application.UseCases.Events.GetById;
 using PassIn.Application.UseCases.Events.Register;
-using PassIn.Application.UseCases.Events.RegisterAttendee;
 using PassIn.Communication.Requests;
 using PassIn.Communication.Responses;
 
@@ -31,6 +31,4 @@ public class EventsController : ControllerBase
         ResponseEventJson response = useCase.Execute(id);
         return Ok(response);
     }
-
-   
 }

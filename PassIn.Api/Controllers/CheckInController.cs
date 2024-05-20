@@ -15,7 +15,7 @@ public class CheckInController : ControllerBase
     public IActionResult CheckIn([FromRoute] Guid atendeId)
     {
         MakeCheckinUseCase useCase = new();
-        ResponseRegisteredJson teste = useCase.Execute(atendeId);
+        _ = useCase.Execute(atendeId);
         return Created();
     }
 }

@@ -30,7 +30,7 @@ public class AttendeeController : ControllerBase
     public IActionResult GetAll([FromRoute] Guid eventId)
     {
         GetAllAttendeesByEventIdUseCase useCase = new();
-        var response = useCase.Execute(eventId);
+        ResponseAllAttendeesJson response = useCase.Execute(eventId);
         return Ok(response);
     }
 }

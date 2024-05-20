@@ -1,4 +1,5 @@
-﻿using PassIn.Communication.Responses;
+﻿using PassIn.Application.LogFiles;
+using PassIn.Communication.Responses;
 using PassIn.Exceptions;
 using PassIn.Infrastructure;
 using PassIn.Infrastructure.Entities;
@@ -21,7 +22,7 @@ public class MakeCheckinUseCase
         };
         _bancoSQL.CheckIns.Add(entidade);
         _bancoSQL.SaveChanges();
-Log.LogToFile("Registro de Check-In","Realizado com Sucesso");
+        Log.LogToFile("Registro de Check-In", "Realizado com Sucesso");
         return new ResponseRegisteredJson { Id = entidade.Id, };
     }
 

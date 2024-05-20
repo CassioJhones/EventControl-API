@@ -1,4 +1,5 @@
-﻿using PassIn.Communication.Requests;
+﻿using PassIn.Application.LogFiles;
+using PassIn.Communication.Requests;
 using PassIn.Communication.Responses;
 using PassIn.Exceptions;
 using PassIn.Infrastructure;
@@ -24,7 +25,7 @@ public class RegisterEventUseCase
 
         bancoSQLite.Events.Add(entidade);
         bancoSQLite.SaveChanges();
-Log.LogToFile("Registro de Evento","Realizado com Sucesso");
+        Log.LogToFile("Registro de Evento", "Realizado com Sucesso");
         return new ResponseRegisteredJson
         {
             Id = entidade.Id

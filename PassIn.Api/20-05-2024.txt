@@ -1,0 +1,12 @@
+Log: cacecebfe
+segunda-feira, 20 de maio de 2024
+Titulo: Registro de Evento
+Mensagem: Realizado com Sucesso
+------------------------------------------
+
+Log: fbafccdcae
+segunda-feira, 20 de maio de 2024
+Titulo: Erro Desconhecido
+Mensagem: SQLite Error 1: 'no such column: a.CheckIn_Id'. - Microsoft.Data.Sqlite
+------------------------------------------
+

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PassIn.Application.LogFiles;
 using PassIn.Communication.Responses;
 using PassIn.Exceptions;
 using PassIn.Infrastructure;
@@ -18,7 +19,7 @@ public class GetAllAttendeesByEventIdUseCase
             .ThenInclude(convidado => convidado.CheckIn)
             .FirstOrDefault(evento => evento.Id == eventId);
 
-             Log.LogToFile("Listagem de Participantes","Realizado com Sucesso");
+        Log.LogToFile("Listagem de Participantes", "Realizado com Sucesso");
         return convidado is null
             ? throw new NotFoundException("Nao Existe")
             : new ResponseAllAttendeesJson

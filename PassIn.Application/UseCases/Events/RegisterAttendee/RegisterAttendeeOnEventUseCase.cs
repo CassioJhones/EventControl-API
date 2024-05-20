@@ -1,4 +1,5 @@
-﻿using PassIn.Communication.Requests;
+﻿using PassIn.Application.LogFiles;
+using PassIn.Communication.Requests;
 using PassIn.Communication.Responses;
 using PassIn.Exceptions;
 using PassIn.Infrastructure;
@@ -25,7 +26,7 @@ public class RegisterAttendeeOnEventUseCase
 
         _bancoSQL.Attendees.Add(entidade);
         _bancoSQL.SaveChanges();
-Log.LogToFile("Registro de Participante","Realizado com Sucesso");
+        Log.LogToFile("Registro de Participante", "Realizado com Sucesso");
         return new ResponseRegisteredJson
         {
             Id = entidade.Id
