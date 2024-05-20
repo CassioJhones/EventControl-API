@@ -25,7 +25,7 @@ public class RegisterAttendeeOnEventUseCase
 
         _bancoSQL.Attendees.Add(entidade);
         _bancoSQL.SaveChanges();
-
+Log.LogToFile("Registro de Participante","Realizado com Sucesso");
         return new ResponseRegisteredJson
         {
             Id = entidade.Id

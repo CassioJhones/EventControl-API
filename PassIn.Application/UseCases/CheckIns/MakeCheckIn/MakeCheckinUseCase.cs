@@ -21,7 +21,7 @@ public class MakeCheckinUseCase
         };
         _bancoSQL.CheckIns.Add(entidade);
         _bancoSQL.SaveChanges();
-
+Log.LogToFile("Registro de Check-In","Realizado com Sucesso");
         return new ResponseRegisteredJson { Id = entidade.Id, };
     }
 

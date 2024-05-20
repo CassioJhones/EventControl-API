@@ -17,6 +17,8 @@ public class GetAllAttendeesByEventIdUseCase
             .Include(evento => evento.Attendees)
             .ThenInclude(convidado => convidado.CheckIn)
             .FirstOrDefault(evento => evento.Id == eventId);
+
+             Log.LogToFile("Listagem de Participantes","Realizado com Sucesso");
         return convidado is null
             ? throw new NotFoundException("Nao Existe")
             : new ResponseAllAttendeesJson
